@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{040D22E0-046C-44AA-96A4-706EE161D4A9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>prjJogoMemoria</RootNamespace>
+    <AssemblyName>prjJogoMemoria</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\w_01_asS_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Click.cs" />
+    <Compile Include="MyComponents\Card.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controle.cs" />
+    <Compile Include="CreateAnimation.cs" />
+    <Compile Include="Database\SQLiteDataAccess.cs" />
+    <Compile Include="FormJogoMemoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormJogoMemoria.Designer.cs">
+      <DependentUpon>FormJogoMemoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Game.cs" />
+    <Compile Include="MyPanels\GamePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyPanels\MainPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Player.cs" />
+    <Compile Include="MyComponents\MyColors.cs" />
+    <Compile Include="MyComponents\MyButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyComponents\MyFont.cs" />
+    <Compile Include="MyComponents\MyLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyComponents\MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyComponents\MyPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyComponents\MyStrings.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MyPanels\StartPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <None Include="Resources\w_01_asS_icon.ico" />
+    <None Include="Resources\Anime\adventure\idle\frame-4.png" />
+    <None Include="Resources\Anime\adventure\idle\frame-3.png" />
+    <None Include="Resources\Anime\adventure\idle\frame-2.png" />
+    <None Include="Resources\Anime\adventure\idle\frame-1.png" />
+    <EmbeddedResource Include="FormJogoMemoria.resx">
+      <DependentUpon>FormJogoMemoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="Database\bdGame.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\Fonts\PixelOperator-Bold.ttf" />
+    <None Include="Resources\Fonts\PixelOperator.ttf" />
+    <None Include="Resources\Fonts\PixelOperator8-Bold.ttf" />
+    <None Include="Resources\Fonts\PixelOperator8.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorHB.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorHB8.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorHBSC.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMono-Bold.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMono.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMono8-Bold.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMono8.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMonoHB.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorMonoHB8.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorSC-Bold.ttf" />
+    <None Include="Resources\Fonts\PixelOperatorSC.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" />
+</Project>
