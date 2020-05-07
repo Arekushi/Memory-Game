@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
-namespace prjJogoMemoria.MyComponents {
-    public class MyLabel : Label {
-
-        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point) {
+namespace prjJogoMemoria.MyComponents
+{
+    public class MyLabel : Label
+    {
+        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point)
+        {
             Name = name;
             Text = text;
             BackColor = bgColor;
@@ -21,7 +19,8 @@ namespace prjJogoMemoria.MyComponents {
             TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point, Font font) {
+        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point, Font font)
+        {
             Name = name;
             Text = text;
             BackColor = bgColor;

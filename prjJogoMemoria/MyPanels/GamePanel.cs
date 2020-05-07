@@ -1,18 +1,13 @@
 ﻿using prjJogoMemoria.MyComponents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
-using prjJogoMemoria.Database;
-using prjJogoMemoria.Model;
-using System.Media;
 
-namespace prjJogoMemoria.MyPanels {
-    public class GamePanel : MyPanel<GamePanel> {
+namespace prjJogoMemoria.MyPanels
+{
+    public class GamePanel : MyPanel<GamePanel>
+    {
 
         private static Game game;
         private readonly Font fntPixel = MyFont.Font(MyStrings.fontPath, 20F);
@@ -27,7 +22,8 @@ namespace prjJogoMemoria.MyPanels {
         public CreateAnimation idleAnime;
         public CreateAnimation myAnime;
 
-        private GamePanel() {
+        private GamePanel()
+        {
             Size = new Size(FormJogoMemoria.Instance().Width, FormJogoMemoria.Instance().Height);
             Anchor = AnchorStyles.None;
             Name = "gamePanel";
@@ -43,23 +39,27 @@ namespace prjJogoMemoria.MyPanels {
             Personagem();
             Score();
             Attacks();
-            Hits(); 
+            Hits();
         }
 
-        private void Song() {
+        private void Song()
+        {
             musicaFundo = new SoundPlayer(MyStrings.battleSongPath);
             musicaFundo.PlayLooping();
         }
 
-        private async Task CardsAsync() {
+        private async Task CardsAsync()
+        {
             game.ListCards = game.Embaralha();
             int index = 0;
             int y = 70;
 
-            for (int i = 0; i < cartas.GetLength(0); i++) {
+            for (int i = 0; i < cartas.GetLength(0); i++)
+            {
                 int x = (Width - (cartas.GetLength(1) * 80)) / 2;
 
-                for (int j = 0; j < cartas.GetLength(1); j++) {
+                for (int j = 0; j < cartas.GetLength(1); j++)
+                {
                     cartas[i, j] = new Card(
                         $"carta{index}", new Point(x, y),
                         new Size(80, 80), new Bitmap(game.ListCards[index]),
@@ -73,13 +73,14 @@ namespace prjJogoMemoria.MyPanels {
 
                     Controls.Add(cartas[i, j]);
                 }
-                y += 80; 
+                y += 80;
             }
 
             await DesvirarTodasCartas(index);
         }
 
-        private void Personagem() {
+        private void Personagem()
+        {
             ptbPersonagem = new MyPictureBox(
                 "ptbPersonagem", new Point((Width - 54) / 2, Height - 100),
                 new Size(67, 75), PictureBoxSizeMode.Zoom
@@ -91,7 +92,8 @@ namespace prjJogoMemoria.MyPanels {
             Controls.Add(ptbPersonagem);
         }
 
-        private void Score() {
+        private void Score()
+        {
             lblScore = new MyLabel(
                 "lblHighScore", $"Score: {game.ReturnScore()}",
                 Color.Transparent, Color.GhostWhite,
@@ -100,12 +102,13 @@ namespace prjJogoMemoria.MyPanels {
             );
 
             lblScore.Location = new Point(0, Height - (lblScore.Height * 2));
-            
+
 
             Controls.Add(lblScore);
         }
 
-        private void Hits() {
+        private void Hits()
+        {
             lblHits = new MyLabel(
                 "lblHighScore", $"Hits: {game.Hits}",
                 Color.Transparent, Color.GhostWhite,
@@ -113,14 +116,15 @@ namespace prjJogoMemoria.MyPanels {
                 MyFont.Font(MyStrings.fontPath, 30F)
             );
 
-            lblHits.Location = 
+            lblHits.Location =
                 new Point((Width - 130), Height - (lblHits.Height * 2) - lblAttacks.Height);
 
 
             Controls.Add(lblHits);
         }
 
-        private void Attacks() {
+        private void Attacks()
+        {
             lblAttacks = new MyLabel(
                 "lblHighScore", $"Attacks: {game.Attacks}",
                 Color.Transparent, Color.GhostWhite,
@@ -135,39 +139,48 @@ namespace prjJogoMemoria.MyPanels {
         }
 
         /* Métodos Carta */
-        public void ClickCarta(object o) {
+        public void ClickCarta(object o)
+        {
             var carta = (Card)o;
 
             /* Verifica se já não houve o primeiro click */
             /* Verifica se o segundo click não é da mesma carta do primeiro */
             /* Verifica se as duas são iguais */
 
-            if (game.Click[0].IdClick != null) {
-                if (game.Click[0].IndiceClick != carta.Indice) {
+            if (game.Click[0].IdClick != null)
+            {
+                if (game.Click[0].IndiceClick != carta.Indice)
+                {
                     game.Click[1].IdClick = carta.IdCarta;
                     game.Click[1].IndiceClick = carta.Indice;
                     VirarCarta(1);
 
-                    if (game.Click[0].IdClick == game.Click[1].IdClick) {
+                    if (game.Click[0].IdClick == game.Click[1].IdClick)
+                    {
                         DesativarCartas();
                         game.Acertou(lblAttacks, ptbPersonagem);
                         game.ResetClick();
 
-                    } else {
+                    }
+                    else
+                    {
                         DesvirarCartas();
                         game.Errou(lblScore, lblHits, ptbPersonagem);
                         game.ResetClick();
                     }
                 }
 
-            } else {
+            }
+            else
+            {
                 game.Click[0].IdClick = carta.IdCarta;
                 game.Click[0].IndiceClick = carta.Indice;
                 VirarCarta(0);
             }
         }
 
-        private void VirarCarta(int index) {
+        private void VirarCarta(int index)
+        {
             cartas
             .OfType<Card>()
             .ToList()
@@ -175,8 +188,10 @@ namespace prjJogoMemoria.MyPanels {
             .VirarCarta();
         }
 
-        private void DesvirarCartas() {
-            for (int p = 0; p < 2; p++) {
+        private void DesvirarCartas()
+        {
+            for (int p = 0; p < 2; p++)
+            {
                 _ = cartas
                 .OfType<Card>()
                 .ToList()
@@ -185,21 +200,25 @@ namespace prjJogoMemoria.MyPanels {
             }
         }
 
-        private async Task DesvirarTodasCartas(int qtdCartas) {
+        private async Task DesvirarTodasCartas(int qtdCartas)
+        {
             await Task.Delay(100);
 
-            for (int i = 0; i < qtdCartas; i++) {
+            for (int i = 0; i < qtdCartas; i++)
+            {
                 _ = cartas
                 .OfType<Card>()
                 .ToList()
                 .First(m => m.Indice == i)
                 .DesvirarCarta();
             }
-            
+
         }
 
-        private void DesativarCartas() {
-            for (int k = 0; k < 2; k++) {
+        private void DesativarCartas()
+        {
+            for (int k = 0; k < 2; k++)
+            {
                 cartas
                 .OfType<Card>()
                 .ToList()

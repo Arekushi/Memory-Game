@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-namespace prjJogoMemoria.MyComponents {
-    public class MyPictureBox : PictureBox {
-
+namespace prjJogoMemoria.MyComponents
+{
+    public class MyPictureBox : PictureBox
+    {
         private readonly int conerSize = 1;
         private readonly Color conerColor = Color.Transparent;
 
-        public MyPictureBox(string name, Point point, Size size) {
+        public MyPictureBox(string name, Point point, Size size)
+        {
             Name = name;
             Location = point;
             Size = size;
@@ -22,7 +19,8 @@ namespace prjJogoMemoria.MyComponents {
             SizeMode = PictureBoxSizeMode.Zoom;
         }
 
-        public MyPictureBox(string name, Point point, Size size, PictureBoxSizeMode mode) {
+        public MyPictureBox(string name, Point point, Size size, PictureBoxSizeMode mode)
+        {
             Name = name;
             Location = point;
             Size = size;
@@ -31,7 +29,8 @@ namespace prjJogoMemoria.MyComponents {
             SizeMode = mode;
         }
 
-        public MyPictureBox(string name, Point point, Size size, Color bgColor) {
+        public MyPictureBox(string name, Point point, Size size, Color bgColor)
+        {
             Name = name;
             Location = point;
             Size = size;
@@ -41,7 +40,8 @@ namespace prjJogoMemoria.MyComponents {
             BackColor = bgColor;
         }
 
-        public MyPictureBox(string name, Point point, Size size, Color bgColor, PictureBoxSizeMode mode) {
+        public MyPictureBox(string name, Point point, Size size, Color bgColor, PictureBoxSizeMode mode)
+        {
             Name = name;
             Location = point;
             Size = size;
@@ -51,8 +51,9 @@ namespace prjJogoMemoria.MyComponents {
             BackColor = bgColor;
         }
 
-        public MyPictureBox(string name, Point point, Size size, Color bgColor, 
-                            PictureBoxSizeMode mode, int conerSize, Color conerColor) {
+        public MyPictureBox(string name, Point point, Size size, Color bgColor,
+                            PictureBoxSizeMode mode, int conerSize, Color conerColor)
+        {
             Name = name;
             Location = point;
             Size = size;
@@ -64,7 +65,8 @@ namespace prjJogoMemoria.MyComponents {
             this.conerColor = conerColor;
         }
 
-        protected override void OnPaint(PaintEventArgs pevent) {
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
             // to draw the control using base OnPaint
             base.OnPaint(pevent);
             //to modify the corner radius

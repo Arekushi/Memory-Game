@@ -1,56 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-namespace prjJogoMemoria.MyComponents {
-    public class MyButton : Button {
-
+namespace prjJogoMemoria.MyComponents
+{
+	public class MyButton : Button
+	{
 		private readonly int conerSize;
 		private readonly Color conerColor;
 
-        public MyButton(String name, String text, Color bgColor, Color frColor, Point point, Size size, Color border, int bSize, int conerSize) {
-            Name = name;
-            Text = text;
-            BackColor = bgColor;
-            ForeColor = frColor;
-            Location = point;
-            Size = size;
-            TabIndex = 0;
-            TabStop = false;
-            FlatStyle = FlatStyle.Flat;
-			if (border == Color.Transparent) {
+		public MyButton(String name, String text, Color bgColor, Color frColor, 
+			Point point, Size size, Color border, int bSize, int conerSize)
+		{
+			Name = name;
+			Text = text;
+			BackColor = bgColor;
+			ForeColor = frColor;
+			Location = point;
+			Size = size;
+			TabIndex = 0;
+			TabStop = false;
+			FlatStyle = FlatStyle.Flat;
+			if (border == Color.Transparent)
+			{
 				conerColor = Color.Transparent;
 				FlatAppearance.BorderColor = bgColor;
-			} else {
+			}
+			else
+			{
 				conerColor = border;
 				FlatAppearance.BorderColor = border;
 			}
 
-            FlatAppearance.BorderSize = bSize;
+			FlatAppearance.BorderSize = bSize;
 			this.conerSize = conerSize;
-        }
+		}
 
-        public MyButton(String name, String text, Color bgColor, Color frColor, Point point, Size size, Font font) {
-            Name = name;
-            Text = text;
-            BackColor = bgColor;
-            ForeColor = frColor;
-            Location = point;
-            Size = size;
-            TabIndex = 0;
-            TabStop = false;
-            Font = font;
-        }
+		public MyButton(String name, String text, Color bgColor, Color frColor, Point point, Size size, Font font)
+		{
+			Name = name;
+			Text = text;
+			BackColor = bgColor;
+			ForeColor = frColor;
+			Location = point;
+			Size = size;
+			TabIndex = 0;
+			TabStop = false;
+			Font = font;
+		}
 
-		protected override void OnPaint(PaintEventArgs pevent) {
-			// to draw the control using base OnPaint
+		protected override void OnPaint(PaintEventArgs pevent)
+		{
 			base.OnPaint(pevent);
-			//to modify the corner radius
 			int CornerRadius = conerSize;
 
 			Pen DrawPen = new Pen(conerColor);

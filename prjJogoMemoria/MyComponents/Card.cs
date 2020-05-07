@@ -1,31 +1,31 @@
 ﻿using prjJogoMemoria.MyComponents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using prjJogoMemoria.MyPanels;
-using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace prjJogoMemoria {
-    public class Card : Button {
-
+namespace prjJogoMemoria
+{
+	public class Card : Button
+	{
 		private readonly int conerSize = 10;
 		private readonly Color conerColor = Color.Transparent;
 
 		public Bitmap ImagemFrente { get; set; }
-        public Bitmap ImagemCostas { get; set; }
-        public string IdCarta { get; set; }
-        public bool Virado { get; set; }
-        public int Indice { get; set; }
 
-        public Card(string name, Point point, Size size, Bitmap frente, string idCarta, int indice) {
-            Name = name;
-            Location = point;
-            Size = size;
+		public Bitmap ImagemCostas { get; set; }
+
+		public string IdCarta { get; set; }
+
+		public bool Virado { get; set; }
+
+		public int Indice { get; set; }
+
+		public Card(string name, Point point, Size size, Bitmap frente, string idCarta, int indice)
+		{
+			Name = name;
+			Location = point;
+			Size = size;
 			TabIndex = 0;
 			TabStop = false;
 			BackColor = MyColors.LARANJA;
@@ -36,19 +36,20 @@ namespace prjJogoMemoria {
 			Indice = indice;
 		}
 
-		public void VirarCarta() {
+		public void VirarCarta()
+		{
 			Image = ImagemFrente;
 		}
 
-		public async Task DesvirarCarta() {
+		public async Task DesvirarCarta()
+		{
 			await Task.Delay(500);
 			Image = null;
 		}
 
-		protected override void OnPaint(PaintEventArgs pevent) {
-			// to draw the control using base OnPaint
+		protected override void OnPaint(PaintEventArgs pevent)
+		{
 			base.OnPaint(pevent);
-			//to modify the corner radius
 			int CornerRadius = conerSize;
 
 			Pen DrawPen = new Pen(conerColor);

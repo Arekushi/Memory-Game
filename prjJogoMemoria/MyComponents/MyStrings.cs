@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
-namespace prjJogoMemoria.MyComponents {
-    public static class MyStrings {
-
+namespace prjJogoMemoria.MyComponents
+{
+    public static class MyStrings
+    {
         public static readonly string[] controls = { "X", "⛶", "_" };
         public static readonly string[] dificuldades = { "Fácil", "Médio", "Difícil" };
 
         /* Font - PixelOperator Path */
-        public static readonly string fontPath = 
+        public static readonly string fontPath =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Fonts\\PixelOperator.ttf");
 
         /* Songs */

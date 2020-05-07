@@ -101,10 +101,6 @@
       <SubType>Component</SubType>
     </Compile>
     <None Include="Resources\w_01_asS_icon.ico" />
-    <None Include="Resources\Anime\adventure\idle\frame-4.png" />
-    <None Include="Resources\Anime\adventure\idle\frame-3.png" />
-    <None Include="Resources\Anime\adventure\idle\frame-2.png" />
-    <None Include="Resources\Anime\adventure\idle\frame-1.png" />
     <EmbeddedResource Include="FormJogoMemoria.resx">
       <DependentUpon>FormJogoMemoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,21 +127,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\Fonts\PixelOperator-Bold.ttf" />
     <None Include="Resources\Fonts\PixelOperator.ttf" />
-    <None Include="Resources\Fonts\PixelOperator8-Bold.ttf" />
-    <None Include="Resources\Fonts\PixelOperator8.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorHB.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorHB8.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorHBSC.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMono-Bold.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMono.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMono8-Bold.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMono8.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMonoHB.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorMonoHB8.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorSC-Bold.ttf" />
-    <None Include="Resources\Fonts\PixelOperatorSC.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
