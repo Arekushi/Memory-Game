@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -10,7 +9,7 @@ namespace prjJogoMemoria.MyComponents
 		private readonly int conerSize;
 		private readonly Color conerColor;
 
-		public MyButton(String name, String text, Color bgColor, Color frColor, 
+		public MyButton(string name, string text, Color bgColor, Color frColor, 
 			Point point, Size size, Color border, int bSize, int conerSize)
 		{
 			Name = name;
@@ -21,7 +20,9 @@ namespace prjJogoMemoria.MyComponents
 			Size = size;
 			TabIndex = 0;
 			TabStop = false;
+			Visible = true;
 			FlatStyle = FlatStyle.Flat;
+
 			if (border == Color.Transparent)
 			{
 				conerColor = Color.Transparent;
@@ -37,7 +38,7 @@ namespace prjJogoMemoria.MyComponents
 			this.conerSize = conerSize;
 		}
 
-		public MyButton(String name, String text, Color bgColor, Color frColor, Point point, Size size, Font font)
+		public MyButton(string name, string text, Color bgColor, Color frColor, Point point, Size size, Font font)
 		{
 			Name = name;
 			Text = text;

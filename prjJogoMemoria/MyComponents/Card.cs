@@ -8,40 +8,42 @@ namespace prjJogoMemoria
 {
 	public class Card : Button
 	{
-		private readonly int conerSize = 10;
+        #region Variables
+
+        private readonly int conerSize = 10;
 		private readonly Color conerColor = Color.Transparent;
 
-		public Bitmap ImagemFrente { get; set; }
-
-		public Bitmap ImagemCostas { get; set; }
+		public Bitmap FrontImage { get; set; }
 
 		public string IdCarta { get; set; }
 
-		public bool Virado { get; set; }
+		public int Index { get; set; }
 
-		public int Indice { get; set; }
+        #endregion
 
-		public Card(string name, Point point, Size size, Bitmap frente, string idCarta, int indice)
+        #region Methods
+
+        public Card(string name, Point point, Size size, Bitmap front, string idCarta, int index)
 		{
 			Name = name;
 			Location = point;
 			Size = size;
 			TabIndex = 0;
 			TabStop = false;
-			BackColor = MyColors.LARANJA;
-			Image = frente;
+			BackColor = MyColors.ORANGE;
+			Image = front;
 
-			ImagemFrente = frente;
+			FrontImage = front;
 			IdCarta = idCarta;
-			Indice = indice;
+			Index = index;
 		}
 
-		public void VirarCarta()
+		public void TapCard()
 		{
-			Image = ImagemFrente;
+			Image = FrontImage;
 		}
 
-		public async Task DesvirarCarta()
+		public async Task UntapCard()
 		{
 			await Task.Delay(500);
 			Image = null;
@@ -88,5 +90,6 @@ namespace prjJogoMemoria
 			Region = new Region(gfxPath_mod);
 		}
 
-	}
+        #endregion
+    }
 }

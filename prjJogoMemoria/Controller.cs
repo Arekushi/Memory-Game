@@ -2,7 +2,7 @@
 
 namespace prjJogoMemoria
 {
-    public static class Controle
+    public static class Controller
     {
 
         private static bool isFull = false;

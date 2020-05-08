@@ -63,7 +63,7 @@
     <Compile Include="MyComponents\Card.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controle.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="CreateAnimation.cs" />
     <Compile Include="Database\SQLiteDataAccess.cs" />
     <Compile Include="FormJogoMemoria.cs">

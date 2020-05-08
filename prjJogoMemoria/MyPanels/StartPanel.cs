@@ -7,10 +7,15 @@ namespace prjJogoMemoria
 {
     public class StartPanel : MyPanel<StartPanel>
     {
-        private readonly Font fntPixel = MyFont.Font(MyStrings.fontPath, 20F);
+        #region Variables
 
+        private readonly Font fntPixel = MyFont.Font(MyStrings.fontPath, 20F);
         private MyPictureBox ptbLoading;
         private CreateAnimation myAnime;
+
+        #endregion
+
+        #region Methods
 
         private StartPanel()
         {
@@ -18,12 +23,12 @@ namespace prjJogoMemoria
             Anchor = AnchorStyles.None;
             Name = "startPanel";
             Location = new Point(0, 0);
-            BackColor = MyColors.CINZA;
+            BackColor = MyColors.GRAY;
             Font = fntPixel;
             TabIndex = 0;
 
             Animaton();
-            _ = TrocarTela();
+            _ = SwitchScreen();
         }
 
         private void Animaton()
@@ -39,7 +44,7 @@ namespace prjJogoMemoria
             Controls.Add(ptbLoading);
         }
 
-        private async Task TrocarTela()
+        private async Task SwitchScreen()
         {
             await Task.Delay(3000);
             FormJogoMemoria.Instance().Controls.Add(MainPanel.Instance());
@@ -47,5 +52,6 @@ namespace prjJogoMemoria
             RemoveInstance();
         }
 
+        #endregion
     }
 }

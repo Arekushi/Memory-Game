@@ -1,12 +1,11 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace prjJogoMemoria.MyComponents
 {
     public class MyLabel : Label
     {
-        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point)
+        public MyLabel(string name, string text, Color bgColor, Color frColor, Point point)
         {
             Name = name;
             Text = text;
@@ -19,7 +18,7 @@ namespace prjJogoMemoria.MyComponents
             TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        public MyLabel(String name, String text, Color bgColor, Color frColor, Point point, Font font)
+        public MyLabel(string name, string text, Color bgColor, Color frColor, Point point, Font font)
         {
             Name = name;
             Text = text;

@@ -4,21 +4,32 @@ namespace prjJogoMemoria.MyComponents
 {
     public static class MyStrings
     {
-        public static readonly string[] controls = { "X", "⛶", "_" };
-        public static readonly string[] dificuldades = { "Fácil", "Médio", "Difícil" };
+        #region Variables
 
-        /* Font - PixelOperator Path */
+        public static readonly string[] controls = { "X", "⛶", "_" };
+        public static readonly string[] Difficulties = { "Fácil", "Médio", "Difícil" };
+
+        #endregion
+
+        #region Fonts
+
         public static readonly string fontPath =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Fonts\\PixelOperator.ttf");
 
-        /* Songs */
+        #endregion
+
+        #region Songs
+
         public static readonly string openingSongPath =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Songs\\Opening.wav");
 
         public static readonly string battleSongPath =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Songs\\Battle.wav");
 
-        /* Animations - adventure */
+        #endregion
+
+        #region Animations - Adventure
+
         public static readonly string adventureIdle =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Anime\\adventure\\idle\\Frame-");
 
@@ -34,8 +45,13 @@ namespace prjJogoMemoria.MyComponents
         public static readonly string adventureLoading =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Anime\\adventure\\loading\\Frame-");
 
-        /* Cards - Weapons */
+        #endregion
+
+        #region Cards
+
         public static readonly string weaponsPath =
             Path.Combine(Path.GetFullPath(@"..\..\"), "Resources\\Cards\\w_");
+
+        #endregion
     }
 }

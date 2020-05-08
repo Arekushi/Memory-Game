@@ -1,61 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Threading;
-using System.Timers;
 
-namespace prjJogoMemoria {
-    public class CreateAnimation {
+namespace prjJogoMemoria
+{
+    public class CreateAnimation
+    {
+        #region Variables
 
         private readonly System.Timers.Timer aTimer;
         private readonly PictureBox ptb;
         private readonly Bitmap[] frames;
         private int indexFrame = 0;
 
-        public CreateAnimation(PictureBox ptb, int intFrames, string path, int velocidade) {
-            aTimer = new System.Timers.Timer(1000 / velocidade) {
+        #endregion
+
+        #region Methods
+
+        public CreateAnimation(PictureBox ptb, int intFrames, string path, int velocity)
+        {
+            aTimer = new System.Timers.Timer(1000 / velocity)
+            {
                 AutoReset = true
             };
 
             frames = new Bitmap[intFrames];
             this.ptb = ptb;
 
-            for (int i = 0; i < intFrames; i++) {
+            for (int i = 0; i < intFrames; i++)
+            {
                 frames[i] = new Bitmap($"{path}{i + 1}.png");
             }
 
             this.ptb.Image = frames[indexFrame];
         }
 
-        public void StartAnimationLoop() {
+        public void StartAnimationLoop()
+        {
             aTimer.Start();
 
-            aTimer.Elapsed += (o, e) => {
+            aTimer.Elapsed += (o, e) =>
+            {
                 indexFrame = ++indexFrame % frames.Length;
                 ptb.Image = frames[indexFrame];
             };
         }
 
-        public void StartAnimation() {
+        public void StartAnimation()
+        {
             aTimer.Start();
 
-            aTimer.Elapsed += (o, e) => {
+            aTimer.Elapsed += (o, e) =>
+            {
                 indexFrame = ++indexFrame % frames.Length;
                 ptb.Image = frames[indexFrame];
 
-                if (indexFrame == (frames.Length - 1)) {
+                if (indexFrame == (frames.Length - 1))
+                {
                     StopAnimation();
                 }
             };
         }
 
-        public void StopAnimation() {
+        public void StopAnimation()
+        {
             aTimer.Stop();
         }
 
+        #endregion
     }
 }

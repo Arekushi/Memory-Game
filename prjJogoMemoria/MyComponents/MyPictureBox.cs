@@ -67,9 +67,7 @@ namespace prjJogoMemoria.MyComponents
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
-            // to draw the control using base OnPaint
             base.OnPaint(pevent);
-            //to modify the corner radius
             int CornerRadius = conerSize;
 
             Pen DrawPen = new Pen(conerColor);

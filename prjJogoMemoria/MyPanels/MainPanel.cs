@@ -10,7 +10,9 @@ namespace prjJogoMemoria
 {
     public class MainPanel : MyPanel<MainPanel>
     {
-        private readonly MyButton[] btnDificuldades = new MyButton[3];
+        #region Variables
+
+        private readonly MyButton[] btnDifficulties = new MyButton[3];
         private readonly Font fntPixel = MyFont.Font(MyStrings.fontPath, 20F);
 
         private MyButton btnPlay;
@@ -18,7 +20,11 @@ namespace prjJogoMemoria
         private MyLabel lblHighScore;
         private MyPictureBox ptbLogo;
         private CreateAnimation myAnime;
-        private SoundPlayer musicaFundo;
+        private SoundPlayer musicBackground;
+
+        #endregion
+
+        #region Methods
 
         private MainPanel()
         {
@@ -26,23 +32,23 @@ namespace prjJogoMemoria
             Anchor = AnchorStyles.None;
             Name = "mainPanel";
             Location = new Point(0, 0);
-            BackColor = MyColors.CINZA;
+            BackColor = MyColors.GRAY;
             Font = fntPixel;
             TabIndex = 0;
 
             Song();
-            Controles();
+            Controllers();
             PixelMemory();
             Weapons();
-            Dificuldades();
+            Difficulties();
             Play();
             HighScore();
         }
 
         private void Song()
         {
-            musicaFundo = new SoundPlayer(MyStrings.openingSongPath);
-            musicaFundo.PlayLooping();
+            musicBackground = new SoundPlayer(MyStrings.openingSongPath);
+            musicBackground.PlayLooping();
         }
 
         private void PixelMemory()
@@ -64,14 +70,13 @@ namespace prjJogoMemoria
         {
             ptbLogo = new MyPictureBox(
                 "ptbLogo", new Point((Width - 80) / 2, ((Height - 80) / 2) - 50),
-                new Size(80, 80), MyColors.LARANJA,
+                new Size(80, 80), MyColors.ORANGE,
                 PictureBoxSizeMode.Zoom, 10,
                 Color.Transparent
             );
 
             myAnime = new CreateAnimation(ptbLogo, 22, MyStrings.weaponsPath, 1);
             myAnime.StartAnimationLoop();
-
             Controls.Add(ptbLogo);
         }
 
@@ -79,9 +84,9 @@ namespace prjJogoMemoria
         {
             btnPlay = new MyButton(
                 "btnPlay", "Play",
-                MyColors.LARANJA, Color.GhostWhite,
+                MyColors.ORANGE, Color.GhostWhite,
                 new Point((Width - 100) / 2, ((Height - 50) / 2) + 100), new Size(100, 50),
-                MyColors.LARANJA, 2,
+                MyColors.ORANGE, 2,
                 10
             );
 
@@ -90,12 +95,12 @@ namespace prjJogoMemoria
             {
                 if (click)
                 {
-                    VisibilidadeDificuldades(click);
+                    VisibilityDifficulties(click);
                     click = false;
                 }
                 else
                 {
-                    VisibilidadeDificuldades(click);
+                    VisibilityDifficulties(click);
                     click = true;
                 }
             };
@@ -105,10 +110,10 @@ namespace prjJogoMemoria
 
         private void HighScore()
         {
-            foreach (Player play in SQLiteDataAccess.SelectHighScore())
+            foreach (Player player in SQLiteDataAccess.SelectHighScore())
             {
                 lblHighScore = new MyLabel(
-                    "lblHighScore", $"High Score: {play.HighScore.ToString()}",
+                    "lblHighScore", $"High Score: {player.HighScore.ToString()}",
                     Color.Transparent, Color.GhostWhite,
                     new Point(0, 0),
                     MyFont.Font(MyStrings.fontPath, 30F)
@@ -120,45 +125,44 @@ namespace prjJogoMemoria
             Controls.Add(lblHighScore);
         }
 
-        private void Dificuldades()
+        private void Difficulties()
         {
             int X = ((Width - 150) / 3) - 25;
 
-            for (int i = 0; i < btnDificuldades.Length; i++)
+            for (int i = 0; i < btnDifficulties.Length; i++)
             {
-                btnDificuldades[i] = new MyButton(
-                    $"btnDificuldades{i}", MyStrings.dificuldades[i],
-                    MyColors.LARANJA, Color.GhostWhite,
+                btnDifficulties[i] = new MyButton(
+                    $"btnDifficulties{i}", MyStrings.Difficulties[i],
+                    MyColors.ORANGE, Color.GhostWhite,
                     new Point(X, ((Height - 50) / 2) + 175), new Size(100, 50),
-                    MyColors.LARANJA, 2,
-                    10
+                    MyColors.ORANGE, 2, 10
                 )
                 {
                     Visible = false
                 };
 
                 int r = i;
-                btnDificuldades[i].Click += (o, e) =>
+                btnDifficulties[i].Click += (o, e) =>
                 {
-                    Game.Instance().Dificuldade = r;
+                    Game.Instance().Difficulties = r;
                     FormJogoMemoria.Instance().Controls.Add(GamePanel.Instance());
                     FormJogoMemoria.Instance().Controls.Remove(this);
                     RemoveInstance();
                 };
 
                 X += 125;
-                Controls.Add(btnDificuldades[i]);
+                Controls.Add(btnDifficulties[i]);
             }
         }
 
-        /* Método Dificuldades */
-        private void VisibilidadeDificuldades(bool click)
+        private void VisibilityDifficulties(bool click)
         {
-            for (int i = 0; i < btnDificuldades.Length; i++)
+            for (int i = 0; i < btnDifficulties.Length; i++)
             {
-                btnDificuldades[i].Visible = click;
+                btnDifficulties[i].Visible = click;
             }
         }
 
+        #endregion
     }
 }

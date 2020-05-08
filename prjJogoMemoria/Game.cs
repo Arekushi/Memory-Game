@@ -11,7 +11,9 @@ namespace prjJogoMemoria
 {
     public class Game
     {
-        public int Dificuldade { get; set; }
+        #region Variables
+
+        public int Difficulties { get; set; }
 
         public int Score { get; set; }
 
@@ -24,7 +26,11 @@ namespace prjJogoMemoria
         public Click[] Click { get; set; } = new Click[2];
 
         private static Game instance;
-        private Card[,] cartas;
+        private Card[,] cards;
+
+        #endregion
+
+        #region Methods
 
         private Game()
         {
@@ -35,29 +41,29 @@ namespace prjJogoMemoria
             ResetClick();
         }
 
-        public Card[,] TamanhoColunaCards()
+        public Card[,] ColumnSize()
         {
-            switch (Dificuldade)
+            switch (Difficulties)
             {
                 case 0:
-                    cartas = new Card[3, 4];
+                    cards = new Card[3, 4];
                     break;
 
                 case 1:
-                    cartas = new Card[3, 6];
+                    cards = new Card[3, 6];
                     break;
 
                 case 2:
-                    cartas = new Card[4, 5];
+                    cards = new Card[4, 5];
                     break;
             }
 
-            return cartas;
+            return cards;
         }
 
         public int ReturnScore()
         {
-            switch (Dificuldade)
+            switch (Difficulties)
             {
                 case 0:
                     Score = 3000;
@@ -75,49 +81,43 @@ namespace prjJogoMemoria
             return Score;
         }
 
-        private string[] PegarImagens()
+        private string[] GetImages()
         {
-            string[] imagens = new string[22];
+            string[] images = new string[22];
 
             for (int i = 0; i < 22; i++)
             {
-                imagens[i] = $"{MyStrings.weaponsPath}{i + 1}.png";
+                images[i] = $"{MyStrings.weaponsPath}{i + 1}.png";
             }
 
-            return imagens;
+            return images;
         }
 
-        private string[] Duplicar(string[] array1)
+        private string[] Duplicate(string[] oldArrayCards)
         {
-            string[] array2 = new string[array1.Length * 2];
+            string[] newArrayCards = new string[oldArrayCards.Length * 2];
             int index = 0;
 
-            for (int i = 0; i < array1.Length; i++)
+            for (int i = 0; i < oldArrayCards.Length; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    array2[index] = array1[i];
+                    newArrayCards[index] = oldArrayCards[i];
                     index++;
                 }
             }
 
-            return array2;
+            return newArrayCards;
         }
 
-        public string[] Embaralha()
+        public string[] Shuffle()
         {
-            int qtdCartas = TamanhoColunaCards().GetLength(0) * TamanhoColunaCards().GetLength(1);
-            int metadeQtdCartas = qtdCartas / 2;
             Random random = new Random();
+            string[] allCards = GetImages().OrderBy(x => random.Next()).ToArray();
+            string[] halfCards = new string[GetHalfCards()];
+            Array.Copy(allCards, halfCards, halfCards.Length);
 
-            string[] todasCartas = PegarImagens().OrderBy(x => random.Next()).ToArray();
-
-            string[] metadeCartas = new string[metadeQtdCartas];
-            Array.Copy(todasCartas, metadeCartas, metadeQtdCartas);
-
-            string[] cartasDuplicadas = Duplicar(metadeCartas).OrderBy(x => random.Next()).ToArray();
-
-            return cartasDuplicadas;
+            return Duplicate(halfCards).OrderBy(x => random.Next()).ToArray();
         }
 
         public void ResetClick()
@@ -128,25 +128,25 @@ namespace prjJogoMemoria
             }
         }
 
-        public void Errou(MyLabel lblScore, MyLabel lblHits, MyPictureBox ptbPersonagem)
+        public void Missed(MyLabel lblScore, MyLabel lblHits, MyPictureBox ptbCharacter)
         {
             Score -= 300;
             Hits++;
 
             lblScore.Text = $"Score: {Score}";
             lblHits.Text = $"Hits: {Hits}";
-            ptbPersonagem.Size = new Size(125, 92);
+            ptbCharacter.Size = new Size(125, 92);
 
             if (Score > 0)
             {
                 GamePanel.Instance().idleAnime.StopAnimation();
-                GamePanel.Instance().myAnime = new CreateAnimation(ptbPersonagem, 3, MyStrings.adventureHit, 5);
+                GamePanel.Instance().myAnime = new CreateAnimation(ptbCharacter, 3, MyStrings.adventureHit, 5);
                 GamePanel.Instance().myAnime.StartAnimation();
             }
             else
             {
                 GamePanel.Instance().idleAnime.StopAnimation();
-                GamePanel.Instance().myAnime = new CreateAnimation(ptbPersonagem, 7, MyStrings.adventureDie, 5);
+                GamePanel.Instance().myAnime = new CreateAnimation(ptbCharacter, 7, MyStrings.adventureDie, 5);
                 GamePanel.Instance().myAnime.StartAnimation();
 
                 Popup("Você morreu... Deseja continuar?", "Game Over");
@@ -154,24 +154,24 @@ namespace prjJogoMemoria
 
         }
 
-        public void Acertou(MyLabel lblAttacks, MyPictureBox ptbPersonagem)
+        public void Success(MyLabel lblAttacks, MyPictureBox ptbCharacter)
         {
             Attacks++;
             lblAttacks.Text = $"Attacks: {Attacks}";
-            ptbPersonagem.Size = new Size(125, 92);
+            ptbCharacter.Size = new Size(125, 92);
 
             GamePanel.Instance().idleAnime.StopAnimation();
-            GamePanel.Instance().myAnime = new CreateAnimation(ptbPersonagem, 13, MyStrings.adventureAttack, 15);
+            GamePanel.Instance().myAnime = new CreateAnimation(ptbCharacter, 13, MyStrings.adventureAttack, 15);
             GamePanel.Instance().myAnime.StartAnimation();
 
-            if (Attacks == (TamanhoColunaCards().GetLength(0) * TamanhoColunaCards().GetLength(1)) / 2)
+            if (Attacks == GetHalfCards())
             {
-                AtualizarHighScore();
+                UpdateHighScore();
                 Popup("Você completou, deseja reiniciar?", "Parabéns");
             }
         }
 
-        private void AtualizarHighScore()
+        private void UpdateHighScore()
         {
             foreach (var item in SQLiteDataAccess.SelectHighScore())
             {
@@ -197,9 +197,9 @@ namespace prjJogoMemoria
                 case DialogResult.Yes:
                     FormJogoMemoria.Instance().Controls.Remove(GamePanel.Instance());
                     GamePanel.RemoveInstance();
-                    int d = Dificuldade;
+                    int d = Difficulties;
                     RemoveInstance();
-                    Instance().Dificuldade = d;
+                    Instance().Difficulties = d;
                     FormJogoMemoria.Instance().Controls.Add(GamePanel.Instance());
                     break;
 
@@ -215,6 +215,15 @@ namespace prjJogoMemoria
                     break;
             }
         }
+
+        private int GetHalfCards()
+        {
+            return ColumnSize().GetLength(0) * ColumnSize().GetLength(1) / 2;
+        }
+
+        #endregion
+
+        #region Singleton
 
         public static Game Instance()
         {
@@ -239,5 +248,7 @@ namespace prjJogoMemoria
                 instance = null;
             }
         }
+
+        #endregion
     }
 }

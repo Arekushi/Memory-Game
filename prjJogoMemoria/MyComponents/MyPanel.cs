@@ -33,14 +33,14 @@ namespace prjJogoMemoria.MyComponents
             }
         }
 
-        public void Controles()
+        public void Controllers()
         {
             int x = Width - 50;
             for (int i = 0; i < btnControls.Length; i++)
             {
                 btnControls[i] = new MyButton(
                     $"btnControls{i}", MyStrings.controls[i],
-                    MyColors.CINZA, Color.GhostWhite,
+                    MyColors.GRAY, Color.GhostWhite,
                     new Point(x, 0), new Size(50, 50),
                     Color.Transparent, 0,
                     5
@@ -53,15 +53,15 @@ namespace prjJogoMemoria.MyComponents
                     switch (r)
                     {
                         case 0:
-                            Controle.Exit();
+                            Controller.Exit();
                             break;
 
                         case 1:
-                            Controle.DoFullscreen(FormJogoMemoria.Instance());
+                            Controller.DoFullscreen(FormJogoMemoria.Instance());
                             break;
 
                         case 2:
-                            Controle.Minimize(FormJogoMemoria.Instance());
+                            Controller.Minimize(FormJogoMemoria.Instance());
                             break;
                     }
                 };
