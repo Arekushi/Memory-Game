@@ -5,6 +5,8 @@ using prjJogoMemoria.MyPanels;
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
+using System;
 
 namespace prjJogoMemoria
 {
@@ -113,7 +115,7 @@ namespace prjJogoMemoria
             foreach (Player player in SQLiteDataAccess.SelectHighScore())
             {
                 lblHighScore = new MyLabel(
-                    "lblHighScore", $"High Score: {player.HighScore.ToString()}",
+                    "lblHighScore", $"High Score: {player.HighScore} - {player.NamePlayer}",
                     Color.Transparent, Color.GhostWhite,
                     new Point(0, 0),
                     MyFont.Font(MyStrings.fontPath, 30F)
@@ -144,10 +146,17 @@ namespace prjJogoMemoria
                 int r = i;
                 btnDifficulties[i].Click += (o, e) =>
                 {
-                    Game.Instance().Difficulties = r;
-                    FormJogoMemoria.Instance().Controls.Add(GamePanel.Instance());
-                    FormJogoMemoria.Instance().Controls.Remove(this);
-                    RemoveInstance();
+                    string userAnswer = Interaction.InputBox("Escreva um nome", "");
+
+                    if(userAnswer != string.Empty)
+                    {
+                        Game.Instance().NamePlayer = userAnswer;
+                        Game.Instance().Difficulties = r;
+                        FormJogoMemoria.Instance().Controls.Add(GamePanel.Instance());
+                        FormJogoMemoria.Instance().Controls.Remove(this);
+                        RemoveInstance();
+                    }
+
                 };
 
                 X += 125;

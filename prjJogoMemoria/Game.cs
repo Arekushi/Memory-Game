@@ -13,6 +13,8 @@ namespace prjJogoMemoria
     {
         #region Variables
 
+        public string NamePlayer { get; set; }
+
         public int Difficulties { get; set; }
 
         public int Score { get; set; }
@@ -166,26 +168,20 @@ namespace prjJogoMemoria
 
             if (Attacks == GetHalfCards())
             {
-                UpdateHighScore();
+                SetHighScore();
                 Popup("Você completou, deseja reiniciar?", "Parabéns");
             }
         }
 
-        private void UpdateHighScore()
+        private void SetHighScore()
         {
-            foreach (var item in SQLiteDataAccess.SelectHighScore())
-            {
-                if (item.HighScore < Score)
-                {
-                    Player player = new Player
-                    {
-                        HighScore = Score
-                    };
+            Player player = new Player() {
+                NamePlayer = NamePlayer,
+                HighScore = Score
+            };
 
-                    SQLiteDataAccess.UpdateHighScore(player);
-                    MessageBox.Show("Novo recorde registrado");
-                }
-            }
+            SQLiteDataAccess.SetHighScore(player);
+            MessageBox.Show("Novo recorde registrado");
         }
 
         private void Popup(string msg, string title)
@@ -197,9 +193,13 @@ namespace prjJogoMemoria
                 case DialogResult.Yes:
                     FormJogoMemoria.Instance().Controls.Remove(GamePanel.Instance());
                     GamePanel.RemoveInstance();
+
                     int d = Difficulties;
+                    string n = NamePlayer;
+
                     RemoveInstance();
                     Instance().Difficulties = d;
+                    Instance().NamePlayer = n;
                     FormJogoMemoria.Instance().Controls.Add(GamePanel.Instance());
                     break;
 

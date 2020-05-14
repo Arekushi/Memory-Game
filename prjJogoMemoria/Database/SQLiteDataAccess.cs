@@ -14,16 +14,17 @@ namespace prjJogoMemoria.Database
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Player>("SELECT * FROM Player", new DynamicParameters());
+                var output = cnn.Query<Player>("SELECT * FROM Player " +
+                    "WHERE highScore = (SELECT MAX(highScore) FROM Player)", new DynamicParameters());
                 return output.ToList();
             }
         }
 
-        public static void UpdateHighScore(Player player)
+        public static void SetHighScore(Player player)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("UPDATE Player set highScore = @highScore", player);
+                cnn.Execute("INSERT INTO Player(namePlayer, highScore) VALUES (@namePlayer, @highScore)", player);
             }
         }
 

@@ -5,5 +5,7 @@
         public int Id { get; set; }
 
         public long HighScore { get; set; }
+
+        public string NamePlayer { get; set; }
     }
 }
